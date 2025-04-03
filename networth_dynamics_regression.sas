@@ -1,4 +1,3 @@
-/*数据处理*/
 /*import data*/
 %let path=D:\L Leng\master of analytics\178724 Applied Econometric Methods\Assignment\A1 sas; 
 libname PRAC "&path";
@@ -29,15 +28,15 @@ data PRAC.ASSESSMENT1_DATA_ARSINH;
     ARSINH_socioeconomic = ARSINH(socioeconomic);
 run;
 
-/*计算相关矩阵 correlation matrix*/
+/*correlation matrix*/
 proc corr data=PRAC.ASSESSMENT1_DATA_ARSINH pearson nosimple noprob plots=none noprob nomiss;
 var ARSINH_wealth pd age male white black hispanic otherrace education 
 income employed divorce marriage childbirth familydeath missedwork ARSINH_socioeconomic;
 run;
 
 
-/*回归分析*/
-/*引入wealth和pd进行simple linear regression*/
+/*regression analysis*/
+/*put wealth and pd to simple linear regression*/
 proc reg data=PRAC.ASSESSMENT1_DATA_ARSINH;
 model ARSINH_wealth=pd / white;
 run;
@@ -109,7 +108,7 @@ proc corr data=PRAC.ASSESSMENT1_DATA_ARSINH cov plots=matrix;
  with pd;
 run;
 
-/* Ramsey’s Reset test */
+/* Ramsey鈥檚 Reset test */
 proc autoreg data=PRAC.ASSESSMENT1_DATA_ARSINH;
 model ARSINH_wealth=pd income education male marriage pd_male/RESET;
 run;
